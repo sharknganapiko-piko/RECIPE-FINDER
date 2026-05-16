@@ -7,54 +7,69 @@
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap');
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:#0d1f0d;color:#d1fae5;font-family:system-ui,sans-serif;min-height:100vh;padding:1.5rem 1rem 4rem}
+  body{background:#0d1f0d;color:#d1fae5;font-family:'Courier Prime',monospace;min-height:100vh}
   @keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeInScale{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
   @keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
   @keyframes shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  @keyframes glowPulse{0%,100%{box-shadow:0 0 20px #4ade8022}50%{box-shadow:0 0 40px #4ade8055}}
   .skel{background:linear-gradient(90deg,#1a3a1a 25%,#2a5a2a 50%,#1a3a1a 75%);background-size:400px 100%;animation:shimmer 1.4s infinite;border-radius:6px}
-  ::-webkit-scrollbar{width:6px}
-  ::-webkit-scrollbar-track{background:#0d1f0d}
-  ::-webkit-scrollbar-thumb{background:#2a4a2a;border-radius:3px}
+  ::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:#0d1f0d}::-webkit-scrollbar-thumb{background:#2a4a2a;border-radius:3px}
 
-  /* Layout */
+  /* ─── AUTH PAGES ─── */
+  #authPage{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:1.5rem;animation:fadeIn .7s ease}
+  .auth-logo{text-align:center;margin-bottom:2.5rem}
+  .auth-logo .logo-emoji{font-size:3rem;display:block;animation:float 3s ease-in-out infinite}
+  .auth-logo h1{font-family:'Special Elite',cursive;font-size:2.4rem;color:#4ade80;text-shadow:0 0 40px #4ade8044;letter-spacing:.04em;margin-top:.3rem}
+  .auth-logo p{color:#86efac88;font-size:.75rem;margin-top:.3rem;letter-spacing:.1em}
+  .auth-card{background:linear-gradient(135deg,#1a2e1a,#0f1f0f);border:1px solid #2a4a2a;border-radius:20px;padding:2rem;width:100%;max-width:420px;animation:fadeInScale .5s ease}
+  .auth-tabs{display:flex;border:1px solid #2a4a2a;border-radius:10px;overflow:hidden;margin-bottom:1.8rem}
+  .auth-tab{flex:1;padding:.65rem;text-align:center;font-size:.8rem;font-family:'Courier Prime',monospace;cursor:pointer;color:#86efac88;background:transparent;border:none;transition:all .25s;letter-spacing:.08em}
+  .auth-tab.active{background:#1a3a1a;color:#4ade80;font-weight:700}
+  .field-group{margin-bottom:1.1rem}
+  .field-label{font-size:.65rem;color:#4ade8088;letter-spacing:.1em;display:block;margin-bottom:5px}
+  .field-input{width:100%;background:#0f1f0f;border:1px solid #2a4a2a;border-radius:10px;color:#d1fae5;font-family:'Courier Prime',monospace;font-size:.88rem;padding:.8rem 1rem;outline:none;transition:border-color .2s}
+  .field-input:focus{border-color:#4ade80}
+  .field-input::placeholder{color:#4ade8033}
+  .auth-btn{width:100%;margin-top:.5rem;background:linear-gradient(135deg,#166534,#14532d);border:2px solid #4ade80;color:#4ade80;border-radius:10px;padding:.85rem;font-family:'Special Elite',cursive;font-size:1.05rem;cursor:pointer;letter-spacing:.05em;transition:all .3s;animation:glowPulse 3s ease infinite}
+  .auth-btn:hover{background:linear-gradient(135deg,#1a7a3d,#166534);transform:translateY(-1px)}
+  .auth-btn:disabled{background:#1a3a1a;border-color:#2a4a2a;color:#4ade8055;cursor:not-allowed;animation:none;transform:none}
+  .auth-divider{text-align:center;color:#2a4a2a;font-size:.75rem;margin:.8rem 0;letter-spacing:.15em}
+  .auth-error{background:#2a0f0f;border:1px solid #f87171;border-radius:8px;padding:.7rem 1rem;color:#fca5a5;font-size:.78rem;margin-bottom:1rem;display:none}
+  .auth-success{background:#0a2a0a;border:1px solid #4ade80;border-radius:8px;padding:.7rem 1rem;color:#4ade80;font-size:.78rem;margin-bottom:1rem;display:none}
+  .guest-btn{width:100%;background:transparent;border:1px solid #2a4a2a;color:#86efac88;border-radius:8px;padding:.6rem;font-family:'Courier Prime',monospace;font-size:.78rem;cursor:pointer;transition:all .2s;margin-top:.5rem}
+  .guest-btn:hover{border-color:#4ade8055;color:#86efac}
+
+  /* ─── APP PAGE ─── */
+  #appPage{display:none;min-height:100vh;padding:1.5rem 1rem 4rem}
   .container{max-width:640px;margin:0 auto}
-  .header{text-align:center;margin-bottom:2rem;animation:fadeIn .6s ease}
+  .header{text-align:center;margin-bottom:2rem;animation:fadeIn .6s ease;position:relative}
   .header-emoji{font-size:2.5rem;margin-bottom:.3rem}
   .header h1{font-family:'Special Elite',cursive;font-size:clamp(2rem,7vw,3rem);color:#4ade80;text-shadow:0 0 40px #4ade8044;letter-spacing:.04em;line-height:1}
   .header p{color:#86efac88;font-family:monospace;font-size:.78rem;margin-top:.4rem}
-
-  /* Input panel */
+  .user-bar{display:flex;align-items:center;justify-content:space-between;background:#1a2e1a;border:1px solid #2a4a2a;border-radius:10px;padding:.55rem 1rem;margin-bottom:1.5rem;font-size:.78rem}
+  .user-bar span{color:#86efac}
+  .user-bar strong{color:#4ade80}
+  .logout-btn{background:transparent;border:1px solid #2a4a2a;color:#86efac88;border-radius:6px;padding:.25rem .7rem;font-size:.72rem;cursor:pointer;font-family:monospace;transition:all .2s}
+  .logout-btn:hover{border-color:#f87171;color:#fca5a5}
   .panel{background:linear-gradient(135deg,#1a2e1a,#0f1f0f);border:1px solid #2a4a2a;border-radius:16px;padding:1.5rem;margin-bottom:2rem;animation:fadeIn .7s ease}
   .label{font-family:monospace;font-size:.65rem;color:#4ade8088;margin-bottom:4px;letter-spacing:.1em;display:block}
-
-  /* Quick fills */
   .quick-fills{margin-bottom:1rem}
   .quick-fills-row{display:flex;gap:.4rem;flex-wrap:wrap}
   .quick-btn{background:#0f1f0f;border:1px solid #2a4a2a;color:#86efac;border-radius:6px;padding:.3rem .6rem;font-size:.72rem;cursor:pointer;font-family:monospace;transition:all .2s}
   .quick-btn:hover{border-color:#4ade80;color:#4ade80}
-
-  /* Textarea */
   textarea{width:100%;background:#0f1f0f;border:1px solid #2a4a2a;border-radius:10px;color:#d1fae5;font-family:monospace;font-size:.85rem;padding:.9rem;resize:vertical;outline:none;line-height:1.6;margin-bottom:1rem;transition:border-color .2s}
   textarea:focus{border-color:#4ade80}
-
-  /* Filters */
   .filters{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
   .filter-group{flex:1 1 140px;min-width:0}
   select{width:100%;background:#0f1f0f;border:1px solid #2a4a2a;color:#86efac;border-radius:8px;padding:.5rem .7rem;font-size:.78rem;font-family:monospace;cursor:pointer;outline:none}
   select option{background:#0f1f0f}
-
-  /* Buttons */
   .btn-generate{width:100%;background:linear-gradient(135deg,#166534,#14532d);border:2px solid #4ade80;color:#4ade80;border-radius:10px;padding:.85rem;font-family:'Special Elite',cursive;font-size:1.1rem;cursor:pointer;letter-spacing:.05em;transition:all .3s;box-shadow:0 0 20px #4ade8022}
   .btn-generate:disabled{background:#1a3a1a;border-color:#2a4a2a;color:#4ade8055;cursor:not-allowed;box-shadow:none}
   .btn-regen{width:100%;margin-top:.5rem;background:transparent;border:1px solid #2a4a2a;color:#86efac88;border-radius:8px;padding:.55rem;font-family:monospace;font-size:.78rem;cursor:pointer;display:none}
-
-  /* Empty state */
   .empty{text-align:center;color:#4ade8033;font-family:monospace;font-size:.82rem;padding:3rem 1rem;border:1px dashed #2a4a2a;border-radius:12px;line-height:2}
-
-  /* Error */
   .error-box{background:#2a0f0f;border:1px solid #f87171;border-radius:10px;padding:1rem;color:#fca5a5;font-family:monospace;font-size:.82rem;text-align:center}
-
-  /* Skeleton */
   .skeleton{animation:fadeIn .4s ease}
   .skel-card{background:linear-gradient(135deg,#1a2e1a,#0f1f0f);border:1px solid #2a4a2a;border-radius:12px;padding:2rem;margin-bottom:1.5rem}
   .skel-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem}
@@ -62,8 +77,6 @@
   .skel-text{margin-bottom:8px}
   .skel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:1.5rem}
   .skel-pulse{text-align:center;color:#4ade8088;font-family:monospace;font-size:.85rem;animation:pulse 1.5s ease-in-out infinite}
-
-  /* Recipe card */
   .recipe{animation:fadeIn .6s ease}
   .recipe-header{background:linear-gradient(135deg,#1a3a1a,#0f2a0f);border:1px solid #3a6a3a;border-radius:16px;padding:1.8rem;margin-bottom:1rem}
   .recipe-title-row{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
@@ -81,26 +94,18 @@
   .servings-ctrl span.label-s{font-size:.78rem;color:#22d3ee;font-family:monospace}
   .servings-ctrl span.count{color:#4ade80;font-weight:700;font-family:monospace;min-width:20px;text-align:center}
   .adj-btn{background:#1a3a1a;border:1px solid #2a4a2a;color:#4ade80;border-radius:4px;width:24px;height:24px;cursor:pointer;font-size:.9rem;font-family:monospace;display:flex;align-items:center;justify-content:center;line-height:1}
-
-  /* Nutrition */
   .nutrition-row{display:flex;gap:.6rem;margin-bottom:1rem;flex-wrap:wrap}
   .nutr-card{background:#0f1f0f;border-radius:10px;padding:1rem;text-align:center;flex:1;min-width:0}
   .nutr-val{font-size:1.4rem;font-weight:700;font-family:monospace}
   .nutr-unit{font-size:.65rem;color:#86efac88;margin-top:2px}
   .nutr-lbl{font-size:.7rem;color:#86efac;margin-top:4px;font-family:monospace}
-
-  /* Section box */
   .section{background:linear-gradient(135deg,#1a2e1a,#0f1f0f);border:1px solid #2a4a2a;border-radius:12px;padding:1.3rem;margin-bottom:1rem}
   .section-title{font-family:'Special Elite',cursive;font-size:1.1rem;color:#4ade80;margin-bottom:.9rem}
   .section-tips{border-color:#fbbf2444}
   .section-tips .section-title{color:#fbbf24}
-
-  /* Ingredients grid */
   .ing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.6rem}
   .ing-chip{background:#0f1f0f;border:1px solid #2a4a2a;border-radius:8px;padding:.6rem .8rem;font-size:.8rem;color:#86efac;font-family:monospace}
   .ing-chip strong{color:#4ade80}
-
-  /* Steps */
   .steps-list{display:flex;flex-direction:column;gap:.6rem}
   .step{background:#0f1f0f;border:1px solid #2a4a2a;border-radius:10px;padding:.9rem 1rem;cursor:pointer;transition:all .3s;display:flex;gap:.8rem;align-items:flex-start}
   .step.done{background:#0a2a0a;border-color:#4ade80;opacity:.5}
@@ -109,8 +114,6 @@
   .step-title{font-weight:700;color:#4ade80;font-size:.82rem;margin-bottom:3px;font-family:monospace}
   .step.done .step-title,.step.done .step-text{text-decoration:line-through}
   .step-text{color:#86efac;font-size:.82rem;line-height:1.6}
-
-  /* Tips */
   .tips-list{display:flex;flex-direction:column;gap:.5rem}
   .tip-row{display:flex;gap:.7rem;align-items:flex-start}
   .tip-arrow{color:#fbbf24;font-family:monospace;font-size:.85rem;flex-shrink:0}
@@ -119,58 +122,208 @@
 </head>
 <body>
 
-<div class="container">
-  <!-- Header -->
-  <div class="header">
-    <div class="header-emoji">🍳🔍</div>
+<!-- ═══════════════════════════════════════ AUTH PAGE ═══ -->
+<div id="authPage">
+  <div class="auth-logo">
+    <span class="logo-emoji">🍳</span>
     <h1>AI RECIPE FINDER</h1>
-    <p>Powered by Anthropic Claude · Enter ingredients, get a full recipe</p>
+    <p>POWERED BY ANTHROPIC CLAUDE</p>
   </div>
 
-  <!-- Input Panel -->
-  <div class="panel">
-    <div class="quick-fills">
-      <span class="label">QUICK FILL</span>
-      <div class="quick-fills-row" id="quickFills"></div>
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">SIGN IN</button>
+      <button class="auth-tab" id="tabSignup" onclick="switchTab('signup')">SIGN UP</button>
     </div>
 
-    <textarea id="ingredients" rows="3" placeholder="e.g. chicken, garlic, lemon, potatoes, olive oil, rosemary..."></textarea>
+    <!-- Error / success banners -->
+    <div class="auth-error" id="authError"></div>
+    <div class="auth-success" id="authSuccess"></div>
 
-    <div class="filters">
-      <div class="filter-group">
-        <span class="label">DIETARY</span>
-        <select id="dietary">
-          <option>None</option><option>Vegetarian</option><option>Vegan</option>
-          <option>Keto</option><option>Gluten-free</option><option>Halal</option><option>Dairy-free</option>
-        </select>
+    <!-- LOGIN FORM -->
+    <div id="loginForm">
+      <div class="field-group">
+        <span class="field-label">EMAIL ADDRESS</span>
+        <input class="field-input" id="loginEmail" type="email" placeholder="you@example.com"/>
       </div>
-      <div class="filter-group">
-        <span class="label">CUISINE</span>
-        <select id="cuisine">
-          <option>Any</option><option>Filipino</option><option>Italian</option><option>Asian</option>
-          <option>Mexican</option><option>Indian</option><option>French</option><option>Mediterranean</option>
-        </select>
+      <div class="field-group">
+        <span class="field-label">PASSWORD</span>
+        <input class="field-input" id="loginPassword" type="password" placeholder="••••••••"/>
       </div>
-      <div class="filter-group">
-        <span class="label">TIME</span>
-        <select id="time">
-          <option>Any time</option><option>Under 15 mins</option><option>Under 30 mins</option>
-          <option>Under 1 hour</option><option>Over 1 hour</option>
-        </select>
-      </div>
+      <button class="auth-btn" id="loginBtn" onclick="handleLogin()">✦ Sign In</button>
     </div>
 
-    <button class="btn-generate" id="generateBtn" onclick="generateRecipe()">✨ Generate Recipe</button>
-    <button class="btn-regen" id="regenBtn" onclick="generateRecipe()">🔄 Regenerate with same ingredients</button>
+    <!-- SIGNUP FORM -->
+    <div id="signupForm" style="display:none">
+      <div class="field-group">
+        <span class="field-label">DISPLAY NAME</span>
+        <input class="field-input" id="signupName" type="text" placeholder="Chef John"/>
+      </div>
+      <div class="field-group">
+        <span class="field-label">EMAIL ADDRESS</span>
+        <input class="field-input" id="signupEmail" type="email" placeholder="you@example.com"/>
+      </div>
+      <div class="field-group">
+        <span class="field-label">PASSWORD</span>
+        <input class="field-input" id="signupPassword" type="password" placeholder="Min. 6 characters"/>
+      </div>
+      <div class="field-group">
+        <span class="field-label">CONFIRM PASSWORD</span>
+        <input class="field-input" id="signupConfirm" type="password" placeholder="Repeat password"/>
+      </div>
+      <button class="auth-btn" id="signupBtn" onclick="handleSignup()">✦ Create Account</button>
+    </div>
+
+    <div class="auth-divider">── or ──</div>
+    <button class="guest-btn" onclick="continueAsGuest()">Continue as Guest →</button>
   </div>
+</div>
 
-  <!-- Output -->
-  <div id="output">
-    <div class="empty">🍽️<br/>Enter ingredients above<br/>and hit Generate Recipe</div>
+<!-- ═══════════════════════════════════════ APP PAGE ═══ -->
+<div id="appPage">
+  <div class="container">
+    <div class="header">
+      <div class="header-emoji">🍳🔍</div>
+      <h1>AI RECIPE FINDER</h1>
+      <p>Powered by Anthropic Claude · Enter ingredients, get a full recipe</p>
+    </div>
+
+    <!-- User bar -->
+    <div class="user-bar">
+      <span>👤 Signed in as <strong id="displayName">Guest</strong></span>
+      <button class="logout-btn" onclick="handleLogout()">Sign Out</button>
+    </div>
+
+    <!-- Input Panel -->
+    <div class="panel">
+      <div class="quick-fills">
+        <span class="label">QUICK FILL</span>
+        <div class="quick-fills-row" id="quickFills"></div>
+      </div>
+      <textarea id="ingredients" rows="3" placeholder="e.g. chicken, garlic, lemon, potatoes, olive oil, rosemary..."></textarea>
+      <div class="filters">
+        <div class="filter-group">
+          <span class="label">DIETARY</span>
+          <select id="dietary">
+            <option>None</option><option>Vegetarian</option><option>Vegan</option>
+            <option>Keto</option><option>Gluten-free</option><option>Halal</option><option>Dairy-free</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <span class="label">CUISINE</span>
+          <select id="cuisine">
+            <option>Any</option><option>Filipino</option><option>Italian</option><option>Asian</option>
+            <option>Mexican</option><option>Indian</option><option>French</option><option>Mediterranean</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <span class="label">TIME</span>
+          <select id="time">
+            <option>Any time</option><option>Under 15 mins</option><option>Under 30 mins</option>
+            <option>Under 1 hour</option><option>Over 1 hour</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-generate" id="generateBtn" onclick="generateRecipe()">✨ Generate Recipe</button>
+      <button class="btn-regen" id="regenBtn" onclick="generateRecipe()">🔄 Regenerate with same ingredients</button>
+    </div>
+
+    <div id="output">
+      <div class="empty">🍽️<br/>Enter ingredients above<br/>and hit Generate Recipe</div>
+    </div>
   </div>
 </div>
 
 <script>
+// ─── AUTH (localStorage-based, no backend needed) ───────────────────────────
+const USERS_KEY = 'recipe_users';
+const SESSION_KEY = 'recipe_session';
+
+function getUsers() { try { return JSON.parse(localStorage.getItem(USERS_KEY) || '{}'); } catch { return {}; } }
+function saveUsers(u) { localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
+function getSession() { try { return JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); } catch { return null; } }
+function saveSession(s) { localStorage.setItem(SESSION_KEY, JSON.stringify(s)); }
+function clearSession() { localStorage.removeItem(SESSION_KEY); }
+
+function showAuthError(msg) {
+  const el = document.getElementById('authError');
+  el.textContent = msg; el.style.display = 'block';
+  document.getElementById('authSuccess').style.display = 'none';
+  setTimeout(() => el.style.display = 'none', 4000);
+}
+function showAuthSuccess(msg) {
+  const el = document.getElementById('authSuccess');
+  el.textContent = msg; el.style.display = 'block';
+  document.getElementById('authError').style.display = 'none';
+}
+
+function switchTab(tab) {
+  document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+  document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
+  document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('tabSignup').classList.toggle('active', tab === 'signup');
+  document.getElementById('authError').style.display = 'none';
+  document.getElementById('authSuccess').style.display = 'none';
+}
+
+function handleLogin() {
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('loginPassword').value;
+  if (!email || !pass) return showAuthError('Please fill in all fields.');
+  const users = getUsers();
+  if (!users[email]) return showAuthError('No account found with that email.');
+  if (users[email].password !== btoa(pass)) return showAuthError('Incorrect password.');
+  saveSession({ email, name: users[email].name });
+  enterApp(users[email].name);
+}
+
+function handleSignup() {
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+  const pass = document.getElementById('signupPassword').value;
+  const confirm = document.getElementById('signupConfirm').value;
+  if (!name || !email || !pass || !confirm) return showAuthError('Please fill in all fields.');
+  if (pass.length < 6) return showAuthError('Password must be at least 6 characters.');
+  if (pass !== confirm) return showAuthError('Passwords do not match.');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showAuthError('Enter a valid email address.');
+  const users = getUsers();
+  if (users[email]) return showAuthError('An account with that email already exists.');
+  users[email] = { name, password: btoa(pass) };
+  saveUsers(users);
+  saveSession({ email, name });
+  showAuthSuccess('Account created! Welcome, ' + name + '!');
+  setTimeout(() => enterApp(name), 800);
+}
+
+function continueAsGuest() {
+  saveSession({ email: null, name: 'Guest' });
+  enterApp('Guest');
+}
+
+function handleLogout() {
+  clearSession();
+  document.getElementById('appPage').style.display = 'none';
+  document.getElementById('authPage').style.display = 'flex';
+  document.getElementById('loginEmail').value = '';
+  document.getElementById('loginPassword').value = '';
+  document.getElementById('output').innerHTML = '<div class="empty">🍽️<br/>Enter ingredients above<br/>and hit Generate Recipe</div>';
+  switchTab('login');
+}
+
+function enterApp(name) {
+  document.getElementById('authPage').style.display = 'none';
+  document.getElementById('appPage').style.display = 'block';
+  document.getElementById('displayName').textContent = name;
+}
+
+// Check existing session on load
+window.addEventListener('DOMContentLoaded', () => {
+  const session = getSession();
+  if (session) enterApp(session.name);
+  initQuickFills();
+});
+
+// ─── QUICK FILLS ─────────────────────────────────────────────────────────────
 const QUICK_FILLS = [
   { label: "🍳 Breakfast", value: "eggs, butter, cheese, bread, milk" },
   { label: "🍝 Pasta Night", value: "pasta, garlic, olive oil, tomatoes, basil, parmesan" },
@@ -179,25 +332,23 @@ const QUICK_FILLS = [
   { label: "🍜 Asian Fusion", value: "rice, soy sauce, ginger, garlic, carrots, broccoli, sesame oil" },
 ];
 
-// Render quick fill buttons
-const qfContainer = document.getElementById('quickFills');
-QUICK_FILLS.forEach(q => {
-  const btn = document.createElement('button');
-  btn.className = 'quick-btn';
-  btn.textContent = q.label;
-  btn.onclick = () => { document.getElementById('ingredients').value = q.value; };
-  qfContainer.appendChild(btn);
-});
+function initQuickFills() {
+  const qfContainer = document.getElementById('quickFills');
+  QUICK_FILLS.forEach(q => {
+    const btn = document.createElement('button');
+    btn.className = 'quick-btn';
+    btn.textContent = q.label;
+    btn.onclick = () => { document.getElementById('ingredients').value = q.value; };
+    qfContainer.appendChild(btn);
+  });
+}
 
-// Servings state
-let currentServings = 2;
-let baseServings = 2;
-let currentRecipe = null;
+// ─── RECIPE GENERATION (direct Anthropic API) ────────────────────────────────
+let currentServings = 2, baseServings = 2, currentRecipe = null;
 
 async function generateRecipe() {
   const ingredients = document.getElementById('ingredients').value.trim();
   if (!ingredients) return;
-
   const dietary = document.getElementById('dietary').value;
   const cuisine = document.getElementById('cuisine').value;
   const time = document.getElementById('time').value;
@@ -207,21 +358,61 @@ async function generateRecipe() {
   document.getElementById('regenBtn').style.display = 'none';
   showSkeleton();
 
+  const prompt = `You are a professional chef. Generate a recipe using these ingredients: ${ingredients}.
+Dietary preference: ${dietary}. Cuisine style: ${cuisine}. Time constraint: ${time}.
+
+Respond ONLY with a valid JSON object (no markdown, no extra text) in this exact structure:
+{
+  "name": "Recipe Name",
+  "emoji": "🍽️",
+  "description": "A short appetizing description (2 sentences)",
+  "cuisine": "Cuisine type",
+  "difficulty": "Easy/Medium/Hard",
+  "prepTime": "X mins",
+  "cookTime": "X mins",
+  "servings": 2,
+  "nutrition": { "calories": 450, "protein": 30, "carbs": 45, "fat": 15 },
+  "ingredients": [
+    { "amount": "2", "item": "chicken breasts, sliced" }
+  ],
+  "steps": [
+    { "title": "Step title", "instruction": "Detailed instruction here." }
+  ],
+  "tips": ["Tip 1", "Tip 2"]
+}`;
+
   try {
-    const res = await fetch('http://localhost:3000/api/recipe', {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ingredients, dietary, cuisine, time })
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': '',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1500,
+        messages: [{ role: 'user', content: prompt }]
+      })
     });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.error?.message || `API error ${res.status}`);
+    }
+
     const data = await res.json();
-    if (data.error) throw new Error(data.error);
-    currentRecipe = data;
-    currentServings = data.servings || 2;
-    baseServings = data.servings || 2;
-    renderRecipe(data);
+    const text = data.content.map(b => b.text || '').join('').trim();
+    const clean = text.replace(/```json|```/g, '').trim();
+    const recipe = JSON.parse(clean);
+    currentRecipe = recipe;
+    currentServings = recipe.servings || 2;
+    baseServings = recipe.servings || 2;
+    renderRecipe(recipe);
     document.getElementById('regenBtn').style.display = 'block';
   } catch (err) {
-    document.getElementById('output').innerHTML = `<div class="error-box">⚠️ ${err.message || 'Failed to generate recipe. Is the backend running?'}</div>`;
+    document.getElementById('output').innerHTML = `<div class="error-box">⚠️ ${err.message || 'Failed to generate recipe. Please try again.'}</div>`;
   } finally {
     document.getElementById('generateBtn').disabled = false;
     document.getElementById('generateBtn').textContent = '✨ Generate Recipe';
@@ -243,10 +434,8 @@ function showSkeleton() {
         <div class="skel skel-text" style="height:16px;width:70%"></div>
         <div class="skel" style="height:16px;width:80%"></div>
         <div class="skel-grid">
-          <div class="skel" style="height:64px"></div>
-          <div class="skel" style="height:64px"></div>
-          <div class="skel" style="height:64px"></div>
-          <div class="skel" style="height:64px"></div>
+          <div class="skel" style="height:64px"></div><div class="skel" style="height:64px"></div>
+          <div class="skel" style="height:64px"></div><div class="skel" style="height:64px"></div>
         </div>
       </div>
       <p class="skel-pulse">🤖 Claude is crafting your recipe...</p>
@@ -264,14 +453,10 @@ function updateServingsDisplay() {
   if (!currentRecipe) return;
   const ratio = currentServings / baseServings;
   document.getElementById('servingsCount').textContent = currentServings;
-
-  // Update ingredients
   currentRecipe.ingredients.forEach((ing, i) => {
     const el = document.getElementById(`ing-${i}`);
     if (el) el.innerHTML = `<strong>${scaleAmt(ing.amount, ratio)}</strong> ${ing.item}`;
   });
-
-  // Update nutrition
   if (currentRecipe.nutrition) {
     const n = currentRecipe.nutrition;
     const fields = { cal: n.calories, prot: n.protein, carb: n.carbs, fat: n.fat };
@@ -295,57 +480,45 @@ function renderRecipe(r) {
     <div class="nutrition-row">
       <div class="nutr-card" style="border:1px solid #fbbf2444">
         <div class="nutr-val" style="color:#fbbf24" id="nutr-cal">${r.nutrition.calories}</div>
-        <div class="nutr-unit">kcal</div><div class="nutr-lbl">Calories</div>
-      </div>
+        <div class="nutr-unit">kcal</div><div class="nutr-lbl">Calories</div></div>
       <div class="nutr-card" style="border:1px solid #4ade8044">
         <div class="nutr-val" style="color:#4ade80" id="nutr-prot">${r.nutrition.protein}g</div>
-        <div class="nutr-unit">protein</div><div class="nutr-lbl">Protein</div>
-      </div>
+        <div class="nutr-unit">protein</div><div class="nutr-lbl">Protein</div></div>
       <div class="nutr-card" style="border:1px solid #22d3ee44">
         <div class="nutr-val" style="color:#22d3ee" id="nutr-carb">${r.nutrition.carbs}g</div>
-        <div class="nutr-unit">carbs</div><div class="nutr-lbl">Carbs</div>
-      </div>
+        <div class="nutr-unit">carbs</div><div class="nutr-lbl">Carbs</div></div>
       <div class="nutr-card" style="border:1px solid #f472b644">
         <div class="nutr-val" style="color:#f472b6" id="nutr-fat">${r.nutrition.fat}g</div>
-        <div class="nutr-unit">fat</div><div class="nutr-lbl">Fat</div>
-      </div>
+        <div class="nutr-unit">fat</div><div class="nutr-lbl">Fat</div></div>
     </div>` : '';
 
   const ingsHTML = (r.ingredients || []).map((ing, i) =>
-    `<div class="ing-chip" id="ing-${i}"><strong>${ing.amount}</strong> ${ing.item}</div>`
-  ).join('');
+    `<div class="ing-chip" id="ing-${i}"><strong>${ing.amount}</strong> ${ing.item}</div>`).join('');
 
   const stepsHTML = (r.steps || []).map((s, i) => `
     <div class="step" id="step-${i}" onclick="toggleStep(${i})">
       <div class="step-num" id="stepnum-${i}">${i + 1}</div>
-      <div>
-        ${s.title ? `<div class="step-title">${s.title}</div>` : ''}
-        <div class="step-text">${s.instruction}</div>
-      </div>
-    </div>`
-  ).join('');
+      <div>${s.title ? `<div class="step-title">${s.title}</div>` : ''}
+        <div class="step-text">${s.instruction}</div></div>
+    </div>`).join('');
 
   const tipsHTML = r.tips && r.tips.length ? `
     <div class="section section-tips">
       <div class="section-title">💡 Chef's Tips</div>
       <div class="tips-list">
         ${r.tips.map(t => `<div class="tip-row"><span class="tip-arrow">→</span><span class="tip-text">${t}</span></div>`).join('')}
-      </div>
-    </div>` : '';
+      </div></div>` : '';
 
   document.getElementById('output').innerHTML = `
     <div class="recipe">
       <div class="recipe-header">
         <div class="recipe-title-row">
           <div class="recipe-emoji">${r.emoji || '🍽️'}</div>
-          <div>
-            <div class="recipe-name">${r.name}</div>
+          <div><div class="recipe-name">${r.name}</div>
             <div class="badges">
               ${r.cuisine ? `<span class="badge badge-cyan">${r.cuisine}</span>` : ''}
               ${r.difficulty ? `<span class="badge badge-yellow">${r.difficulty}</span>` : ''}
-            </div>
-          </div>
-        </div>
+            </div></div></div>
         <p class="recipe-desc">${r.description}</p>
         <div class="meta-row">
           <div class="meta-chip">⏱ <strong>Prep:</strong> ${r.prepTime}</div>
@@ -355,21 +528,23 @@ function renderRecipe(r) {
             <button class="adj-btn" onclick="currentServings=Math.max(1,currentServings-1);updateServingsDisplay()">−</button>
             <span class="count" id="servingsCount">${r.servings || 2}</span>
             <button class="adj-btn" onclick="currentServings++;updateServingsDisplay()">+</button>
-          </div>
-        </div>
-      </div>
+          </div></div></div>
       ${nutrHTML}
-      <div class="section">
-        <div class="section-title">🧺 Ingredients</div>
-        <div class="ing-grid">${ingsHTML}</div>
-      </div>
-      <div class="section">
-        <div class="section-title">📋 Instructions</div>
-        <div class="steps-list">${stepsHTML}</div>
-      </div>
+      <div class="section"><div class="section-title">🧺 Ingredients</div><div class="ing-grid">${ingsHTML}</div></div>
+      <div class="section"><div class="section-title">📋 Instructions</div><div class="steps-list">${stepsHTML}</div></div>
       ${tipsHTML}
     </div>`;
 }
+
+// Allow Enter key on password fields
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    if (document.getElementById('loginForm').style.display !== 'none' &&
+        document.activeElement === document.getElementById('loginPassword')) handleLogin();
+    if (document.getElementById('signupForm').style.display !== 'none' &&
+        document.activeElement === document.getElementById('signupConfirm')) handleSignup();
+  }
+});
 </script>
 </body>
 </html>
